@@ -1,0 +1,63 @@
+.cinema-root{
+    .cinema-head{
+        padding:.2rem .4rem;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        p{
+            font-size:.8rem;
+        }
+
+    }
+    .frame{
+        width:100%;
+        height:4rem;
+    }
+    .cinema-all{
+        text-align: left;
+        
+        .cinema-detail{
+            position: relative;
+            margin:.2rem 0rem .2rem .8rem;
+            padding:.4rem 0;
+            border-bottom: solid gray .02rem;
+            font-size:.7rem;
+            .cinema-detail-title{
+                font-weight: 700;
+            }
+            .cinema-detail-address{
+                font-size:.6rem;
+                color:gray;
+                margin-top:.2rem;
+            }
+            .cinema-detail-price{
+                position: absolute;
+                top:.4rem;
+                right:0;
+                width:3rem;
+                height:2rem;
+                font-size:.8rem;
+                color:orangered;
+            }
+            .cinema-detail-feature{
+                display: flex;
+                margin-top:.2rem;
+                :not(:first-child){
+                    margin-left:.2rem;
+                }
+                div{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size:.4rem;
+                    color:rgb(121,170,45);
+                    border:solid rgb(121,170,45) .02rem;
+                    border-radius: .2rem;
+                    width:.8rem;
+                    height:.8rem;
+                    padding:.1rem .1rem;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,39 @@
+.home-search-root{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left:.6rem;
+    right:.6rem;
+    bottom:-.8rem;
+    height:1.6rem;
+
+    background-color:rgb(255,255,255);
+    z-index:20;
+
+    border-radius: 1rem;
+    border:solid black .03rem;
+    padding:0 .4rem;
+
+    div img{
+        display: block;
+        height:.8rem;
+    }
+
+    .placeholder{
+        color:gray;
+        font-size:.6rem;
+        text-align: left;
+        flex-grow: 1;
+    }
+
+    .search-pic{
+        margin-right:.2rem;
+    }
+    .search-2-number{
+        border-left: solid silver .03rem;
+        img{
+            margin-left: .5rem;
+        }
+    }
+}
