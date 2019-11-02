@@ -24,7 +24,7 @@ const commandMap = {
             const loading = ora('download template...')
             loading.start()
             await downloadLocal('yTime', 'ppp')
-            generate('./ppp', './build', {
+            await generate('./ppp', './build', {
                 description,
                 author,
                 showRouter: true

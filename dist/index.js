@@ -53,7 +53,7 @@ const commandMap = {
             const loading = (0, _ora2.default)('download template...');
             loading.start();
             await (0, _get2.default)('yTime', 'ppp');
-            (0, _generate2.default)('./ppp', './build', {
+            await (0, _generate2.default)('./ppp', './build', {
                 description,
                 author,
                 showRouter: true
