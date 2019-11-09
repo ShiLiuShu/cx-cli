@@ -1,5 +1,9 @@
 export default [
     {
+        name: 'projectName',
+        message: 'Please enter the project name'
+    },
+    {
         name: 'description',
         message: 'Please enter the project description'
     },

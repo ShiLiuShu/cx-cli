@@ -36,30 +36,40 @@ var _logSymbols = require('log-symbols');
 
 var _logSymbols2 = _interopRequireDefault(_logSymbols);
 
+var _child_process = require('child_process');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * 命令集合
  */
-
-// import chalk from 'chalk'
 const commandMap = {
     create: {
         description: "create a new project from a cx template",
         usages: ['cx create templateName projectName'],
         action: async () => {
-            console.log('create');
-            const { description, author } = await _inquirer2.default.prompt(_prompt2.default);
-            const loading = (0, _ora2.default)('download template...');
+            console.log('create cx template new');
+            const { description, author, projectName } = await _inquirer2.default.prompt(_prompt2.default);
+            let loading = (0, _ora2.default)('download template...');
             loading.start();
-            await (0, _get2.default)('yTime', 'ppp');
-            await (0, _generate2.default)('./ppp', './build', {
+            await (0, _get2.default)('vue-webpack4-template', 'cx-cli-beta-temp');
+            await (0, _generate2.default)('cx-cli-beta-temp', projectName, {
                 description,
                 author,
-                showRouter: true
+                showRouter: false
             });
             loading.succeed();
-            console.log(_logSymbols2.default.success, makeGreen('initial success'));
+            return new Promise((resolve, reject) => {
+                loading = (0, _ora2.default)('installing modules...');
+                loading.start();
+                (0, _child_process.exec)('cnpm install', { cwd: `${projectName}` }, function (err) {
+                    if (err) return reject(err);
+                    resolve();
+                    loading.succeed();
+                    console.log(_logSymbols2.default.success, makeGreen('cx-cli initial success'));
+                    console.log(_chalk2.default.cyan(`cd ${projectName} && npm run dev`));
+                });
+            });
         }
     }
 };

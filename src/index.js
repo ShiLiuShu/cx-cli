@@ -1,5 +1,4 @@
 import program from 'commander'
-// import chalk from 'chalk'
 import VERSION from './utils/version'
 import downloadLocal from './utils/get'
 import inquirer from 'inquirer'
@@ -8,6 +7,7 @@ import generate from './generate'
 import ora from 'ora'
 import chalk from 'chalk'
 import logSymbols from 'log-symbols'
+import { exec } from 'child_process'
 
 /**
  * 命令集合
@@ -19,18 +19,28 @@ const commandMap = {
             'cx create templateName projectName'
         ],
         action: async () => {
-            console.log('create')
-            const { description, author } = await inquirer.prompt(prompt)
-            const loading = ora('download template...')
+            console.log('create cx template new')
+            const { description, author, projectName } = await inquirer.prompt(prompt)
+            let loading = ora('download template...')
             loading.start()
-            await downloadLocal('yTime', 'ppp')
-            await generate('./ppp', './build', {
+            await downloadLocal('vue-webpack4-template', 'cx-cli-beta-temp')
+            await generate('cx-cli-beta-temp', projectName, {
                 description,
                 author,
-                showRouter: true
+                showRouter: false
             })
             loading.succeed()
-            console.log(logSymbols.success, makeGreen('initial success'))
+            return new Promise((resolve, reject) => {
+                loading = ora('installing modules...')
+                loading.start()
+                exec('cnpm install', { cwd: `${projectName}` }, function (err) {
+                    if (err) return reject(err)
+                    resolve()
+                    loading.succeed()
+                    console.log(logSymbols.success, makeGreen('cx-cli initial success'))
+                    console.log(chalk.cyan(`cd ${projectName} && npm run dev`))
+                })
+            })
         }
     }
 }
