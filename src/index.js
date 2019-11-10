@@ -21,6 +21,54 @@ const commandMap = {
         action: async () => {
             console.log('create cx template new')
             const { description, author, projectName } = await inquirer.prompt(prompt)
+            const { features } = await inquirer.prompt([
+                {
+                    name: 'features',
+                    type: 'checkbox',
+                    message: 'Check the features needed for your project: ',
+                    default: ['ts', 'css'],
+                    choices: [
+                        {
+                            name: 'TypeScript',
+                            value: 'ts'
+                        },
+                        {
+                            name: 'CSS Pre-processors',
+                            value: 'css'
+                        },
+                        {
+                            name: 'Vuex',
+                            value: 'vuex'
+                        },
+                        {
+                            name: 'PWA Support',
+                            value: 'pwa'
+                        },
+                        {
+                            name: 'Use UIP(统一接口平台)',
+                            value: 'uip'
+                        },
+                        {
+                            name: 'Use UCEM(前端异常监控系统)',
+                            value: 'codebug'
+                        }
+                    ]
+                }
+            ])
+            if (features.includes('css')) {
+                const { cssProcessorType } = await inquirer.prompt([
+                    {
+                        name: 'cssProcessorType',
+                        type: 'list',
+                        message: 'Please choose a css processor: ',
+                        choices: [
+                            { name: 'sass', value: 'sass' },
+                            { name: 'less', value: 'less' },
+                            { name: 'stylus', value: 'stylus' }
+                        ]
+                    }
+                ])
+            }
             let loading = ora('download template...')
             loading.start()
             await downloadLocal('vue-webpack4-template', 'cx-cli-beta-temp')

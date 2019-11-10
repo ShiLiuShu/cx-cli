@@ -50,6 +50,39 @@ const commandMap = {
         action: async () => {
             console.log('create cx template new');
             const { description, author, projectName } = await _inquirer2.default.prompt(_prompt2.default);
+            const { features } = await _inquirer2.default.prompt([{
+                name: 'features',
+                type: 'checkbox',
+                message: 'Check the features needed for your project: ',
+                default: ['ts', 'css'],
+                choices: [{
+                    name: 'TypeScript',
+                    value: 'ts'
+                }, {
+                    name: 'CSS Pre-processors',
+                    value: 'css'
+                }, {
+                    name: 'Vuex',
+                    value: 'vuex'
+                }, {
+                    name: 'PWA Support',
+                    value: 'pwa'
+                }, {
+                    name: 'Use UIP(统一接口平台)',
+                    value: 'uip'
+                }, {
+                    name: 'Use UCEM(前端异常监控系统)',
+                    value: 'codebug'
+                }]
+            }]);
+            if (features.includes('css')) {
+                const { cssProcessorType } = await _inquirer2.default.prompt([{
+                    name: 'cssProcessorType',
+                    type: 'list',
+                    message: 'Please choose a css processor: ',
+                    choices: [{ name: 'sass', value: 'sass' }, { name: 'less', value: 'less' }, { name: 'stylus', value: 'stylus' }]
+                }]);
+            }
             let loading = (0, _ora2.default)('download template...');
             loading.start();
             await (0, _get2.default)('vue-webpack4-template', 'cx-cli-beta-temp');
