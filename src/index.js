@@ -19,7 +19,7 @@ const commandMap = {
             'cx create templateName projectName'
         ],
         action: async () => {
-            console.log('create cx template new')
+            console.log(chalk.cyan('🚀  Create cx template...'))
             const { description, author, projectName } = await inquirer.prompt(prompt)
             const { features } = await inquirer.prompt([
                 {
@@ -55,7 +55,9 @@ const commandMap = {
                     ]
                 }
             ])
-            if (features.includes('css')) {
+            const useCssPreProcessors = features.includes('css')
+            const useUip = features.includes('uip')
+            if (useCssPreProcessors) {
                 const { cssProcessorType } = await inquirer.prompt([
                     {
                         name: 'cssProcessorType',
@@ -75,7 +77,8 @@ const commandMap = {
             await generate('cx-cli-beta-temp', projectName, {
                 description,
                 author,
-                showRouter: false
+                showRouter: false,
+                useUip
             })
             loading.succeed()
             return new Promise((resolve, reject) => {
